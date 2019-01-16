@@ -47,13 +47,36 @@ class TimeDifference
 
   def in_general
     remaining = @time_diff
-
     Hash[TIME_COMPONENTS.map do |time_component|
-      rounded_time_component = (remaining / 1.send(time_component)).floor
-      remaining -= rounded_time_component.send(time_component)
-
-      [time_component, rounded_time_component]
+      if remaining > 0
+        rounded_time_component = (remaining / 1.send(time_component).seconds).round(2).floor
+        remaining -= rounded_time_component.send(time_component)
+        [time_component, rounded_time_component]
+      else
+        [time_component, 0]
+      end
     end]
+  end
+
+  def humanize
+    diff_parts = []
+    in_general.each do |part,quantity|
+      next if quantity <= 0
+      part = part.to_s.humanize
+
+      if quantity <= 1
+        part = part.singularize
+      end
+
+      diff_parts << "#{quantity} #{part}"
+    end
+
+    last_part = diff_parts.pop
+    if diff_parts.empty?
+      return last_part
+    else
+      return [diff_parts.join(', '), last_part].join(' and ')
+    end
   end
 
   private

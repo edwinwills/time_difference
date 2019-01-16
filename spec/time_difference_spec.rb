@@ -13,11 +13,13 @@ describe TimeDifference do
   end
 
   describe ".between" do
-    it "returns a new TimeDifference instance" do
-      start_time = Time.new(2011, 1)
-      end_time = Time.new(2011, 12)
+    with_each_class do |clazz|
+      it "returns a new TimeDifference instance in each component" do
+        start_time = clazz.new(2011, 1)
+        end_time = clazz.new(2011, 12)
 
-      expect(TimeDifference.between(start_time, end_time)).to be_a(TimeDifference)
+        expect(TimeDifference.between(start_time, end_time)).to be_a(TimeDifference)
+      end
     end
   end
 
@@ -38,7 +40,18 @@ describe TimeDifference do
         start_time = clazz.new(2009, 11)
         end_time = clazz.new(2011, 1)
 
-        expect(TimeDifference.between(start_time, end_time).in_general).to eql({years: 1, months: 2, weeks: 0, days: 0, hours: 18, minutes: 0, seconds: 0})
+        expect(TimeDifference.between(start_time, end_time).in_general).to eql({years: 1, months: 2, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0})
+      end
+    end
+  end
+
+  describe "#humanize" do
+    with_each_class do |clazz|
+      it "returns a string representing the time difference from in_general" do
+        start_time = clazz.new(2009, 11)
+        end_time = clazz.new(2011, 1)
+
+        expect(TimeDifference.between(start_time, end_time).humanize).to eql("1 Year and 2 Months")
       end
     end
   end

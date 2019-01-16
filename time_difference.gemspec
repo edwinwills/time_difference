@@ -11,11 +11,11 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "time_difference"
   gem.require_paths = ["lib"]
-  gem.version       = "0.4.2"
+  gem.version       = "0.7.0"
   gem.license = 'MIT'
 
-  gem.add_runtime_dependency('activesupport')
-  gem.add_development_dependency('rspec', '~> 2.13.0')
+  gem.add_runtime_dependency('activesupport', '~> 5.1')
+  gem.add_development_dependency('rspec', '~> 3.7.0')
   gem.add_development_dependency('rake')
 
 end

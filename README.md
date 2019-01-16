@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/tmlee/time_difference.png)](https://travis-ci.org/tmlee/time_difference)
 
+This latest version of the gem works with ActiveSupport 5.1. For prior version, check out [v0.6.x-activesupport42](https://github.com/tmlee/time_difference/tree/0.6.0-activesupport42)
+
 # TimeDifference
 
 TimeDifference is the missing Ruby method to calculate difference between two given time. You can do a Ruby time difference in year, month, week, day, hour, minute, and seconds.
@@ -91,6 +93,16 @@ end_time = Time.new(2014,1)
 
 TimeDifference.between(start_time, end_time).in_general
 => {:years=>0, :months=>12, :weeks=>0, :days=>5, :hours=>0, :minutes=>0, :seconds=>0}
+```
+
+### You can also get `in_general` as a human readable string, using `humanize`
+
+```ruby
+start_time = Time.new(2013,1)
+end_time = Time.new(2014,1)
+
+TimeDifference.between(start_time, end_time).humanize
+=> "12 Months and 5 Days"
 ```
 
 ## Contributing
